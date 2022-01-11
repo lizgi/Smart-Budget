@@ -46,6 +46,11 @@ INSTALLED_APPS = [
     'cloudinary',
     'smartapp',
     'bootstrap4',
+    'expenses',
+    'userpreferences',
+    'userincome',
+    'crispy_forms',
+   
 ]
 
 MIDDLEWARE = [
@@ -63,7 +68,7 @@ ROOT_URLCONF = 'smartproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,17 +90,17 @@ WSGI_APPLICATION = 'smartproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD':config('DB_PASSWORD'),
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD':config('PASSWORD'),
         
     }
 }
 
 cloudinary.config(
-    cloud_name = config('CL_NAME'),
-    api_key= config('CL_KEY'),
-    api_secret=config('CL_SECRET'),
+   cloud_name =config('CLOUD_NAME'),
+    api_key=config('CLOUD_API_KEY'), 
+    api_secret=config('API_SECRET'),
 )
 
 # Password validation
@@ -140,7 +145,14 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "smartproject/static"),
 
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'login'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
