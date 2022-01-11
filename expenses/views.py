@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 import json
 from django.http import JsonResponse
-from userpreferences.models import UserPreference
+# from userpreferences.models import UserPreference
 import datetime
 
 
@@ -24,23 +24,23 @@ def search_expenses(request):
         return JsonResponse(list(data), safe=False)
 
 
-@login_required(login_url='/authentication/login')
+# @login_required(login_url='/authentication/login')
 def index(request):
     categories = Category.objects.all()
     expenses = Expense.objects.filter(owner=request.user)
     paginator = Paginator(expenses, 5)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
-    currency = UserPreference.objects.get(user=request.user).currency
+    # currency = UserPreference.objects.get(user=request.user).currency
     context = {
         'expenses': expenses,
         'page_obj': page_obj,
-        'currency': currency
+        # 'currency': currency
     }
     return render(request, 'expenses/index.html', context)
 
 
-@login_required(login_url='/authentication/login')
+# @login_required(login_url='/authentication/login')
 def add_expense(request):
     categories = Category.objects.all()
     context = {
@@ -71,7 +71,7 @@ def add_expense(request):
         return redirect('expenses')
 
 
-@login_required(login_url='/authentication/login')
+# @login_required(login_url='/authentication/login')
 def expense_edit(request, id):
     expense = Expense.objects.get(pk=id)
     categories = Category.objects.all()
