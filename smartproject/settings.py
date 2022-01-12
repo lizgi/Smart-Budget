@@ -12,10 +12,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-from decouple import config,Csv
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from decouple import config,Csv
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'userpreferences',
     'userincome',
     'crispy_forms',
-   
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -156,3 +156,20 @@ LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'login'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+AUTHENTICATION_BACKENDS = [
+  
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    
+
+   
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+
+   
+]
+
