@@ -12,14 +12,45 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-from decouple import config,Csv
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from decouple import config,Csv
+import dj_database_url
 
+
+MODE=config("MODE", default="dev")
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+# development
+if config('MODE')=="dev":
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'NAME': config('DB_NAME'),
+           'USER': config('DB_USER'),
+           'PASSWORD': config('DB_PASSWORD'),
+           'HOST': config('DB_HOST'),
+           'PORT': '',
+       }
+       
+   }
+# production
+else:
+   DATABASES = {
+       'default': dj_database_url.config(
+           default=config('DATABASE_URL')
+       )
+   }
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+# DATABASES = { 'default': dj_database_url.config() }
+
+# ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -50,7 +81,7 @@ INSTALLED_APPS = [
     'userpreferences',
     'userincome',
     'crispy_forms',
-   
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -87,15 +118,15 @@ WSGI_APPLICATION = 'smartproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('NAME'),
-        'USER': config('USER'),
-        'PASSWORD':config('PASSWORD'),
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('NAME'),
+#         'USER': config('USER'),
+#         'PASSWORD':config('PASSWORD'),
         
-    }
-}
+#     }
+# }
 
 cloudinary.config(
    cloud_name =config('CLOUD_NAME'),
@@ -156,3 +187,26 @@ LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'login'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+AUTHENTICATION_BACKENDS = [
+  
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    
+
+   
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+
+   
+]
+
+SOCIAL_AUTH_FACEBOOK_KEY=config('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET =config('SOCIAL_AUTH_FACEBOOK_SECRET')
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+
