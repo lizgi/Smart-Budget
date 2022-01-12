@@ -15,24 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-# from django_registration.backends.one_step.views import RegistrationView
-# from django.contrib.auth import views 
 from smartapp import views as smartapp_views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
-    # path('',include('smartapp.urls')),
-    # path('accounts/register/', RegistrationView.as_view(success_url='/create_profile'),
-    # name='django_registration_register'),
-    # path('accounts/', include('django_registration.backends.one_step.urls')),
-    # path('accounts/', include('django.contrib.auth.urls')),
-    # path('logout/', views.logout_then_login, name='logout'),
-    # path('income/', include('userincome.urls')),
-    
     path('', include('smartapp.urls')),
-     path('expenses/', include('expenses.urls')),
-    # path('authentication/', include('authentication.urls')),
+    path('expenses/', include('expenses.urls')),
     path('preferences/', include('userpreferences.urls')),
     path('income/', include('userincome.urls')),
     path('admin/', admin.site.urls),
