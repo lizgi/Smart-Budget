@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 import json
 from django.http import JsonResponse
-# from userpreferences.models import UserPreference
+from userpreferences.models import UserPreference
 import datetime
 
 
@@ -31,11 +31,11 @@ def index(request):
     paginator = Paginator(expenses, 5)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
-    # currency = UserPreference.objects.get(user=request.user).currency
+    currency = UserPreference.objects.get(user=request.user).currency
     context = {
         'expenses': expenses,
         'page_obj': page_obj,
-        # 'currency': currency
+        'currency': currency
     }
     return render(request, 'expenses/index.html', context)
 
@@ -114,7 +114,7 @@ def delete_expense(request, id):
     messages.success(request, 'Expense removed')
     return redirect('expenses')
 
-
+'API VIEW'
 def expense_category_summary(request):
     todays_date = datetime.date.today()
     six_months_ago = todays_date-datetime.timedelta(days=30*6)
