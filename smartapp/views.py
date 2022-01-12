@@ -64,3 +64,4 @@ def update_profile(request,id):
                 return redirect('profile') 
             
     return render(request, 'update_profile.html', {"form":form})
+
