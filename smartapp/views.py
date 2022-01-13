@@ -67,6 +67,7 @@ def update_profile(request,id):
             
     return render(request, 'update_profile.html', {"form":form})
 
+
 @login_required(login_url='/accounts/login/')
 def finance(request):
     country = request.GET.get('country')
@@ -90,3 +91,4 @@ def finance(request):
     }
 
     return render(request, 'news_api/news.html', context)
+
