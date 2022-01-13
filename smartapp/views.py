@@ -74,12 +74,12 @@ def finance(request):
     category = request.GET.get('category')
 
     if country:
-        url = f'https://newsapi.org/v2/top-headlines?country={country}&apiKey={API_KEY}'
+        url = f'https://newsapi.org/v2/top-headlines?language=en&country={country}&apiKey={API_KEY}'
         response = requests.get(url)
         data = response.json()
         articles = data['articles']
     else:
-        url = f'https://newsapi.org/v2/top-headlines?category={category}&apiKey={API_KEY}'
+        url = f'https://newsapi.org/v2/top-headlines?language=en&?category=Business&apiKey={API_KEY}'
         response = requests.get(url)
         data = response.json()
         articles = data['articles']
