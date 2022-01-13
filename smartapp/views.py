@@ -5,7 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from smartapp.forms import *
 from .models import *
+import requests
 
+API_KEY = 'f9612b287f7246c9910557c118324602'
 
 def register(request):
     if request.user.is_authenticated:
@@ -64,4 +66,29 @@ def update_profile(request,id):
                 return redirect('profile') 
             
     return render(request, 'update_profile.html', {"form":form})
+
+
+@login_required(login_url='/accounts/login/')
+def finance(request):
+    country = request.GET.get('country')
+    category = request.GET.get('category')
+
+    if country:
+        url = f'https://newsapi.org/v2/top-headlines?country={country}&apiKey={API_KEY}'
+        response = requests.get(url)
+        data = response.json()
+        articles = data['articles']
+    else:
+        url = f'https://newsapi.org/v2/top-headlines?category={category}&apiKey={API_KEY}'
+        response = requests.get(url)
+        data = response.json()
+        articles = data['articles']
+
+
+
+    context = {
+        'articles' : articles
+    }
+
+    return render(request, 'news_api/news.html', context)
 
