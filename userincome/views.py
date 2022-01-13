@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import json
 from django.http import JsonResponse
+import datetime
+
 # Create your views here.
 
 
@@ -28,11 +30,11 @@ def index(request):
     paginator = Paginator(income, 5)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
-    # currency = UserPreference.objects.get(user=request.user).currency
+    currency = UserPreference.objects.get(user=request.user).currency
     context = {
         'income': income,
         'page_obj': page_obj,
-        # 'currency': currency
+        'currency': currency
     }
     return render(request, 'income/index.html', context)
 
@@ -108,3 +110,33 @@ def delete_income(request, id):
     income.delete()
     messages.success(request, 'record removed')
     return redirect('income')
+
+'API VIEW'
+def income_description_summary(request):
+    todays_date = datetime.date.today()
+    six_months_ago = todays_date-datetime.timedelta(days=30*6)
+    income = UserIncome.objects.filter(owner=request.user,
+                                      date__gte=six_months_ago, date__lte=todays_date)
+    finalrep = {}
+
+    def get_description(income):
+        return income.description
+    description_list = list(set(map(get_description, income)))
+
+    def get_income_description_amount(description):
+        amount = 0
+        filtered_by_description = income.filter(description=description)
+
+        for item in filtered_by_description:
+            amount += item.amount
+        return amount
+
+    for x in income:
+        for y in description_list:
+            finalrep[y] = get_income_description_amount(y)
+
+    return JsonResponse({'income_description_data': finalrep}, safe=False)
+
+
+def stats_viewer(request):
+    return render(request, 'income/stats.html')
