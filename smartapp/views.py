@@ -29,6 +29,9 @@ def register(request):
 def index(request):
     return render(request, 'index.html')
 
+def home(request):
+    return render(request, 'registration/home.html')
+
 @login_required(login_url='/accounts/login/')
 def create_profile(request):
     current_user = request.user
