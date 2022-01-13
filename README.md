@@ -35,6 +35,6 @@ $ git clone https://github.com/lizgi/Smart-Budget/
 ### Contact Information
 
 
-## License Copyright
+### License Copyright
 2022, Smart Budget.
 License: MIT
