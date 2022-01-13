@@ -23,6 +23,7 @@ urlpatterns = [
     path('expenses/', include('expenses.urls')),
     path('preferences/', include('userpreferences.urls')),
     path('income/', include('userincome.urls')),
+    
     path('admin/', admin.site.urls),
     path('accounts/register/',smartapp_views.register, name='register'),
     path('accounts/login/',auth_views.LoginView.as_view(redirect_authenticated_user=True), name='login'),
