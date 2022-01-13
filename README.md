@@ -2,7 +2,7 @@
 # Smart-Budget
 
 ## Project Description
-Smart-Budget is an application that helps you see how much money you have coming in and going out. It is available in a range of community languages and explains each category.
+Smart-Budget is a cute app for keeping your finances in order. In addition to mundane features like powerful multi-currency, several accounts, planned transactions and cloud synchronization for multiple devices in your family, it has something unexpected for a 'serious' app, like drawing stylish category icons with your finger.
 ### Link to Live Project
 https://github.com/lizgi/Smart-Budget/
 ### Contributors
