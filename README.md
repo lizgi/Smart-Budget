@@ -31,6 +31,9 @@ $ git clone https://github.com/lizgi/Smart-Budget/
 ### Technologies Used
 * Python-Django
 * Bootstrap
+* HTML 
+* CSS
+* JavaScript
 
 ### Contact Information
 
