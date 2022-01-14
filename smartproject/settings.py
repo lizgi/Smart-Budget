@@ -77,7 +77,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'smartapp',
-    'bootstrap4',
+    'bootstrap5',
     'expenses',
     'userpreferences',
     'userincome',
