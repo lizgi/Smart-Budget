@@ -35,6 +35,7 @@ Django = "==3.2.9"
 Pillow = "==8.4.0"
 django-crispy-forms = "*"
 social-auth-app-django = "*"
+django-bootstrap-v5 = "*"
 
 [dev-packages]
 

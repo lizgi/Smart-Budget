@@ -17,6 +17,7 @@ import cloudinary.uploader
 import cloudinary.api
 from decouple import config,Csv
 import dj_database_url
+import django_heroku
 
 
 MODE=config("MODE", default="dev")
@@ -76,7 +77,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'smartapp',
-    'bootstrap4',
+    'bootstrap5',
     'expenses',
     'userpreferences',
     'userincome',
@@ -210,3 +211,5 @@ SOCIAL_AUTH_FACEBOOK_SECRET =config('SOCIAL_AUTH_FACEBOOK_SECRET')
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
+# Activate Django-Heroku.
+django_heroku.settings(locals())
